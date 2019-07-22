@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 3rd party libraries
+    'paypal.standard.ipn',
     # my apps
     'cart',
     'orders',
@@ -46,6 +48,10 @@ INSTALLED_APPS = [
 
 # Informations about the site
 CART_SESSION_ID = 'cart'
+
+# paypal infos
+PAYPAL_RECEIVER_EMAIL = ""  # email of your paypal account
+PAYPAL_TEST = True
 
 
 MIDDLEWARE = [
@@ -89,7 +95,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
