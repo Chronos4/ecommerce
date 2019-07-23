@@ -13,14 +13,13 @@ def cart_add(request, product_id):
     if form.is_valid():
         cd = form.cleaned_data
         cart.add(
-            product,
-            cd.get("quantity"),
-            cd.get("updated")
+            product=product,
+            quantity=cd.get("quantity"),
+            update_quantity=cd.get("update")
         )
     return redirect("cart:detail")
 
 
-@require_POST
 def cart_remove(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)

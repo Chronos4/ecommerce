@@ -23,7 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("cart/", include("cart.urls", namespace="cart")),
     path("order/", include("orders.urls", namespace="order")),
-    path("paypal/",include("paypal.standard.ipn.urls"))
+    path("paypal/", include("paypal.standard.ipn.urls")),
+    path("payment/", include("payment.urls", namespace="payment")),
     path("products/", include('shop.urls', namespace="products")),
 
 ]
