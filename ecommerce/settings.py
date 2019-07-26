@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as _
 """
 Django settings for ecommerce project.
 
@@ -39,7 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd party libraries
+    'localflavor',
     'paypal.standard.ipn',
+    'parler',
+    'rosetta',
     # my apps
     'cart',
     'coupons',
@@ -59,6 +63,7 @@ PAYPAL_TEST = True
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "django.middleware.locale.LocaleMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -97,7 +102,11 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 1
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -121,7 +130,29 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+
+LANGUAGE_CODE = 'en'
+LANGUAGES = (
+    ('en', _('English')),
+    ('es', _('Spanish')),
+    ('el', _("Greek")),
+)
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)
+
+
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'en', },
+        {'code': 'es', },
+        {'code': 'el', }
+    ),
+    'default': {
+        'fallback': 'en',
+        'hide_untranslated': False,
+    }
+}
 
 TIME_ZONE = 'UTC'
 
